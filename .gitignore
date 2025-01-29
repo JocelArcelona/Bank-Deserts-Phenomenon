@@ -172,3 +172,6 @@ cython_debug/
 
 # APIs
 config.ini
+
+# Virtual Environments
+venv/
