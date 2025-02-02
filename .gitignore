@@ -176,3 +176,6 @@ jocelenv/
 
 # Ignore all CSV files inside data_collection directory
 data_collection/*.csv
+
+# ignore config
+config.ini
