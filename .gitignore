@@ -177,5 +177,13 @@ jocelenv/
 # Ignore all CSV files inside data_collection directory
 data_collection/*.csv
 
+# Ignore all CSV/txt/xlsx files inside data_preprocessing directory
+data_preprocessing/*.csv
+data_preprocessing/*.txt
+data_preprocessing/*.xlsx
+data_preprocessing/fdic_data/
+data_preprocessing/ncua_data/
+data_preprocessing/us_census_data/
+
 # ignore config
 config.ini
