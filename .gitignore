@@ -174,8 +174,9 @@ cython_debug/
 anaconda_projects/
 jocelenv/
 
-# Ignore all CSV files inside data_collection directory
+# Ignore all files inside data_collection directory
 data_collection/*.csv
+data_collection/tiger_shp/
 
 # Ignore all CSV/txt/xlsx files inside data_preprocessing directory
 data_preprocessing/*.csv
