@@ -174,3 +174,6 @@ FederallyInsuredCreditUnions_2024q3.xlsx
 FederallyInsuredCreditUnions_2024q3 Updated - Copy.csv
 FederallyInsuredCreditUnions_2024q3 Updated.csv
 .idea/
+data_preprocessing/addresses_geocoded.csv
+data_preprocessing/NCUA Addresses.csv
+data_preprocessing/combined_file.parquet
