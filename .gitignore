@@ -182,9 +182,17 @@ data_collection/tiger_shp/
 data_preprocessing/*.csv
 data_preprocessing/*.txt
 data_preprocessing/*.xlsx
+data_preprocessing/*.parquet
 data_preprocessing/fdic_data/
 data_preprocessing/ncua_data/
 data_preprocessing/us_census_data/
+data_preprocessing/all_bank_data/
+data_preprocessing/ct_shapefiles_data/
+data_preprocessing/ruca_data/
+
+# Ignore parquet files inside EDA directory 
+exploratory_data_analysis/*.parquet
+
 
 # ignore config
 config.ini
