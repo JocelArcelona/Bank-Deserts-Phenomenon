@@ -7,3 +7,8 @@ requests==2.32.3
 beautifulsoup4==4.12.3
 census==0.8.23
 configparser==7.1.0
+dash==2.18.2
+fastparquet==2024.11.0
+geopandas==1.0.1
+pyarrow==19.0.1
+jupyter-dash==0.4.2
