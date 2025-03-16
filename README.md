@@ -161,13 +161,13 @@ The beeswarm plot of the positive class below shows not just the importance of e
 
 # Top 2 most influential features (according to feature importance and shap analysis) line plot 
 ![Screenshot (24)](https://github.com/user-attachments/assets/d3d24425-37ca-4089-a720-84bfc99a6287)
-Key Takeaways:
+**Key Takeaways:**
 - Urban areas with Potential Bank Desert status have the highest density, which is unusual compared to suburban and rural trends. The trend of bank desert status is not as clear for Urban areas potentially due to urban areas having a high population density by definition so it's harder to see the pattern compared to Rural and Suburban communities. 
 - For suburban and rural areas, the trend is clear: Bank Deserts are in the least dense locations, while Not a Bank Desert areas have the highest densities.
 - This suggests that in suburban and rural areas, banking presence is linked to higher population density, but in urban areas, other factors might influence bank desert status.
 
 ![Screenshot (25)](https://github.com/user-attachments/assets/5fd46d3c-488f-4d50-888a-e06ca90309a7)
-Key takeaways:
+**Key takeaways:**
 - Across all community types, areas with more housing units are less likely to be Bank Deserts.
 - The difference in median housing units between "Bank Desert" and "Not a Bank Desert" areas is most pronounced in rural areas.
 - This suggests a strong relationship between banking access and housing concentration, where fewer housing units might correlate with lower demand for traditional banking services.
