@@ -17,17 +17,20 @@ A banking desert is a census tract without a bank branch located within a certai
 ○ This dataset contains all banks taken from the FDIC’s API 
 
 ○ Steps for data collection: 
-  ■ The FDIC dataset contains information on all fdic-insured banks inside and outside the US (US States + US territories). 
+
+  1) The FDIC dataset contains information on all fdic-insured banks inside and outside the US (US States + US territories). 
 Created a function to access the fdic api that can handle pagination due to the api’s limit per request. The function also handles saving all the data retrieved locally. 
-  ■ The FDIC dataset needed to be geocoded to extract the census tract GEOID and locations. The geocoding process was done using the US 
+  2) The FDIC dataset needed to be geocoded to extract the census tract GEOID and locations. The geocoding process was done using the US 
 Census Bureau’s Geocoding Services Web API. 
 Created a function to batch geocode all bank addresses to retrieve geoid and coordinates 
+
 ○ Steps for data preprocessing: 
-  ■ After geocoding the bank addresses, bank locations outside of the US were dropped 
-  ■ Concatenate all csv files containing geocoded addresses of all banks inside the US and this was followed by the same basic practices during 
+
+  1) After geocoding the bank addresses, bank locations outside of the US were dropped 
+  2) Concatenate all csv files containing geocoded addresses of all banks inside the US and this was followed by the same basic practices during 
 data cleaning like checking null values, dropping nulls, dropping 
 duplicated rows and assuring that the data is in the correct data type. 
-  ■ Merged the geocoded addresses columns with the original fdic bank 
+  3) Merged the geocoded addresses columns with the original fdic bank 
 dataset to obtain a dataset containing bank information with GEOID 
 (feature engineered using State + County + Census tract code obtained 
 from geocoding) and coordinates. 
@@ -36,14 +39,17 @@ from geocoding) and coordinates.
 ○ Zipped files containing geospatial data that provide detailed geographical boundary information (in the case of this analysis, census tract level geographical boundary information) 
 
 ○ Steps for data collection: 
-  ■ Used beautifulSoup to parse through the html document and used 
+
+  1) Used beautifulSoup to parse through the html document and used 
 webdrivermanager to download all zipped TIGER/line shapefiles from the US Census Bureau. This contains all census tracts geographical 
-boundaries by state. 
+boundaries by state.
+
 ○ Steps for data preprocessing: 
-  ■ Concatenated all census tract shapefiles (56 shapefiles) into one 
+
+  1) Concatenated all census tract shapefiles (56 shapefiles) into one 
 GeoDataFrame and saved it as a parquet file to preserve data types and compress the geometry feature
-  ■ Dropped US territories (outside of the US) based on their state code (60 for American Samoa, 66 for Guam, 69 for Northern Mariana Islands, 72 for Puerto Rico and 78 for US Virgin Islands) 
-  ■ Merged the shapefiles data with the RUCA (Urban/Rural Classification) data on GEOID – this is crucial for identifying the bank desert status. 
+  2) Dropped US territories (outside of the US) based on their state code (60 for American Samoa, 66 for Guam, 69 for Northern Mariana Islands, 72 for Puerto Rico and 78 for US Virgin Islands) 
+  3) Merged the shapefiles data with the RUCA (Urban/Rural Classification) data on GEOID – this is crucial for identifying the bank desert status. 
 Shapefiles data contain coordinates of census tracts, the RUCA contains the Community Type of each census tract. 
 
 **USDA (Rural/Urban Classification using RUCA code) + Census Tract Relationship Files from the US Census**
@@ -52,26 +58,33 @@ Shapefiles data contain coordinates of census tracts, the RUCA contains the Comm
 ○ 2020 version from the USDA will be released on Spring 2025 
 
 ○ Steps for data collection: 
-  ■ This dataset was provided by the USDA, it can be found on their website and can be downloaded as a csv file 
+
+  1) This dataset was provided by the USDA, it can be found on their website and can be downloaded as a csv file
+     
 ○ Steps for preprocessing: 
-  ■ State, county and census tract codes could contain some 0’s in the beginning like 01 for Alabama. Due to the format of the file, it keeps 
+
+  1) State, county and census tract codes could contain some 0’s in the beginning like 01 for Alabama. Due to the format of the file, it keeps 
 dropping all the 0’s in front of the codes. To prevent this, I had to change the data type to string and use .zfill to maintain the nature of the codes (a full geoid on the census tract level contains 11 digits). 
-  ■ Repeated the same process from above to the census tract relationship files data and merged both datasets on GEOID. This will update the 2010 GEOID from RUCA to the 2020 GEOID version – this will make merging the datasets easier and more aligned.
+  2) Repeated the same process from above to the census tract relationship files data and merged both datasets on GEOID. This will update the 2010 GEOID from RUCA to the 2020 GEOID version – this will make merging the datasets easier and more aligned.
   
 **FDIC DATASET + NCUA DATASET**
 ○ This dataset contains ALL bank data and credit unions (all geocoded, containing GEOID and coordinates) 
 
 ○ Steps for data collection: 
-  ■ Developed a function to geocode bank and credit union locations using the FDIC API and NCUA data, then integrated the geocoded addresses back into the original FDIC and NCUA datasets to create a comprehensive bank dataset.
+
+  1) Developed a function to geocode bank and credit union locations using the FDIC API and NCUA data, then integrated the geocoded addresses back into the original FDIC and NCUA datasets to create a comprehensive bank dataset.
+     
 ○ Steps for data preprocessing: 
-  ■ Same preprocessing steps taken for the FDIC data. Rename columns, drop null values, drop duplicated rows and ensure correct data types. 
+
+  1) Same preprocessing steps taken for the FDIC data. Rename columns, drop null values, drop duplicated rows and ensure correct data types. 
 
 **US Census Data (ACS5) for Modeling** 
 ○ Steps for data preprocessing:
-  ■ Prepared the census data for modeling by identifying and extracting the majority and minority race/age/gender categories based on their 
+
+  1) Prepared the census data for modeling by identifying and extracting the majority and minority race/age/gender categories based on their 
 percentages (instead of each race, each age and gender categories as its own column, I summarized it to majority and minority race/age/gender 
 and included the majority and minority percentages as well) 
-  ■ Dropped columns that showed high correlation with each other to prevent multicollinearity and lessen feature space 
+  2) Dropped columns that showed high correlation with each other to prevent multicollinearity and lessen feature space 
 
 # Feature Engineering 
 1) Bank Desert Status (Target Variable): contains the bank desert status of each census tract in the US (bank desert, potential bank desert, not a bank desert)
@@ -137,6 +150,30 @@ The beeswarm plot of the positive class below shows not just the importance of e
 1) Census Tracts with lower population density values lead to more bank deserts
 2) Census Tracts with lower housing unit values lead to more bank deserts
 3) And inversely, Census Tracts with higher homeownership percentage lead to more bank deserts.
+
+# Top 2 most influential features (according to feature importance and shap analysis) line plot 
+![Screenshot (24)](https://github.com/user-attachments/assets/d3d24425-37ca-4089-a720-84bfc99a6287)
+Key Takeaways:
+- Urban areas with Potential Bank Desert status have the highest density, which is unusual compared to suburban and rural trends. The trend of bank desert status is not as clear for Urban areas potentially due to urban areas having a high population density by definition so it's harder to see the pattern compared to Rural and Suburban communities. 
+- For suburban and rural areas, the trend is clear: Bank Deserts are in the least dense locations, while Not a Bank Desert areas have the highest densities.
+- This suggests that in suburban and rural areas, banking presence is linked to higher population density, but in urban areas, other factors might influence bank desert status.
+
+![Screenshot (25)](https://github.com/user-attachments/assets/5fd46d3c-488f-4d50-888a-e06ca90309a7)
+Key takeaways:
+- Across all community types, areas with more housing units are less likely to be Bank Deserts.
+- The difference in median housing units between "Bank Desert" and "Not a Bank Desert" areas is most pronounced in rural areas.
+- This suggests a strong relationship between banking access and housing concentration, where fewer housing units might correlate with lower demand for traditional banking services.
+- Compared to population density, housing units provide a clearer and more consistent pattern in defining bank desert status across all community types. The inconsistencies seen in population density—especially in urban areas—suggest that housing units might be a better predictor of banking access.
+- The USDA, which manages the Rural-Urban Classification (RUCA), also shifted to using housing density instead of population density in the 2020 version of the framework. This reinforces the idea that housing units may be a more stable measure for defining community types and, by extension, banking access.
+
+# Interactive Census Tract Map
+This interactive map, built with Leaflet and Shiny, allows users to explore census tracts by state and county. It visualizes census data (like poverty and income) using a continuous color scale, similar to a density heatmap. Users can filter by region and hover over tracts to view details like geoid, tract name, bank desert status, and other categorical information. The map helps identify trends in socioeconomic conditions and banking access.
+
+**Note:**
+Run census_tracts_viz_r rmd file found under the visualization directory to see the full interactive visualization 
+![Screenshot (22)](https://github.com/user-attachments/assets/86786e50-7ad4-45e4-9633-09ca3c32b078)
+
+
 
 
 
