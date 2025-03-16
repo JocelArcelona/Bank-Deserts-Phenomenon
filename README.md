@@ -109,11 +109,17 @@ Assigns the classification to the census shapefile dataframe and returns the upd
 
 # Bank Desert Classification using Socioeconomic Factors (for Identifying Financially Underserved Communities -- Bank Deserts) 
 **Key Features:** Socioeconomic factors such as Poverty, Income, Population Density, Housing Units, etc.
+
 **Target Variable:** Bank Desert Status
+
 **Bank Desert Status:** Positive class: Bank Desert, Negative class: Not a Bank Desert (Potential Bank Desert + Not a Bank Desert)
+
 **Models Used:** Logistic Regression, Decision Trees, Random Forest
+
 **Methodology:** Train-test split, Scaling, Stratification, Cross-validation, Hyperparameter tuning with GridSearchCV (Optimization)
+
 **Evaluation:** Metric - Weighted Recall
+
 **Results Interpretation:** Feature Importance, SHAP Analysis
 
 # Feature Importance and SHAP analysis visualization
