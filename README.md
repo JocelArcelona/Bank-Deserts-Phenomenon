@@ -1,4 +1,5 @@
 # Bank-Deserts-Phenomenon
+![banking-desert-hero_900x506x4800-2700-0-0](https://github.com/user-attachments/assets/224c0f3d-c92b-4dc7-b124-c0862aecacf4)
 
 # Problem Statement 
 Access to physical banking services is often limited or non-existent in some census tract areas in the US, a phenomenon known as Bank Deserts. This study aims to analyze and understand Bank Deserts and the relationship between socioeconomic factors and the availability of banking services by integrating data from the US Census Bureau (Census data, TIGER/line shapefiles), FDIC (federally insured banks), NCUA (credit unions) and USDA. 
