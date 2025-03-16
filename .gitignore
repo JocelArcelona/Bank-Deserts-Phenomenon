@@ -169,7 +169,35 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
-.idea/
-*.csv
-*.xlsx
-*.parquet
+
+# Ignore virtual environments
+anaconda_projects/
+jocelenv/
+
+# Ignore all files inside data_collection directory
+data_collection/*.csv
+data_collection/tiger_shp/
+
+# Ignore all CSV/txt/xlsx files inside data_preprocessing directory
+data_preprocessing/*.csv
+data_preprocessing/*.txt
+data_preprocessing/*.xlsx
+data_preprocessing/*.parquet
+data_preprocessing/fdic_data/
+data_preprocessing/ncua_data/
+data_preprocessing/us_census_data/
+data_preprocessing/all_bank_data/
+data_preprocessing/ct_shapefiles_data/
+data_preprocessing/ruca_data/
+
+# Ignore parquet files inside EDA directory 
+exploratory_data_analysis/*.parquet
+
+# Ignore jpeg files inside modeling directory
+modeling/*.jpg
+
+# Ignore jpeg files inside visualization directory
+visualization/*.parquet
+
+# ignore config
+config.ini

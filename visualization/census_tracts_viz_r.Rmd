@@ -1,0 +1,145 @@
+---
+title: "census_viz"
+output: html_document
+date: "2025-03-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidycensus)
+library(tidyverse)
+library(tigris)
+library(mapboxapi)
+library(mapview)
+library(tmap)
+library(leaflet)
+library(ggiraph)
+library(scales)
+library(patchwork)
+library(shiny)
+library(ggplot2)
+library(arrow)
+library(usethis)
+library(sf)
+library(dplyr)
+```
+
+```{r census shapefile data}
+census_with_bsd <- read_parquet('census_shapefile.parquet')
+head(census_with_bsd)
+```
+
+```{r census shapefile data}
+
+```
+
+```{r census api key}
+census_api_key('742baa8ff6b3656a6ce950a451e7d113b6ea68b4', install = FALSE)
+```
+
+```{r}
+# check if dataframe is an 'sf' object
+
+class(census_with_bsd)
+```
+
+```{r}
+# convert WKB column into simple feature geometries
+geometry_column <- st_as_sfc(census_with_bsd$geometry, crs = 4326)  # Adjust CRS as needed
+
+# create sf object
+census_with_bsd_sf <- st_sf(census_with_bsd, geometry = geometry_column)
+```
+
+```{r}
+class(census_with_bsd_sf)
+```
+
+```{r ui interface}
+# UI
+ui <- fluidPage(
+  titlePanel("Select State, County, and Census Data"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      # dropdown for selecting State
+      selectInput("state", "Choose a State:", 
+                  choices = unique(census_with_bsd_sf$State), 
+                  selected = unique(census_with_bsd_sf$State)[1]),
+      
+      # dropdown for selecting County
+      selectInput("county", "Choose a County:", 
+                  choices = NULL,  # Initially empty, will be populated based on State
+                  selected = NULL),
+      
+      # dropdown for selecting numerical variable (e.g., income, poverty, population density)
+      selectInput("variable", "Choose a Census Data:", 
+                  choices = c("Income", "Population Density", "House Units", "Poverty%", "Employment%", "Disability%", "VacantHous%", "OwnOcpHous%"),  # Automatically list numeric columns
+                  selected = "Population Density")
+    ),
+    
+    mainPanel(
+      leafletOutput("map")  # Output map
+    )
+  )
+)
+
+```
+
+```{r}
+# server
+server <- function(input, output, session) {
+  
+  # reactive expression for filtering counties based on the selected state
+  observe({
+    selected_state <- input$state
+    counties_in_state <- unique(census_with_bsd_sf$County[census_with_bsd_sf$State == selected_state])
+    updateSelectInput(session, "county", 
+                      choices = counties_in_state, 
+                      selected = counties_in_state[1])
+  })
+  
+  # render the map with selected State, County, and Variable
+  output$map <- renderLeaflet({
+    selected_state <- input$state
+    selected_county <- input$county
+    selected_variable <- input$variable
+    
+    # filter the data to get the census tracts for the selected state and county
+    tract_data <- census_with_bsd_sf[census_with_bsd_sf$State == selected_state & census_with_bsd_sf$County == selected_county, ]
+    
+    var_range <- range(tract_data[[selected_variable]], na.rm = TRUE)
+    
+    # create a color palette for the selected numerical variable
+    color_palette <- colorNumeric(palette = "plasma", 
+                                  domain = var_range, 
+                                  na.color = "transparent")
+    
+    # generate the map
+    leaflet(tract_data) %>%
+      addTiles() %>%
+      addPolygons(fillColor = ~color_palette(tract_data[[selected_variable]]),  # Apply color scale
+                  color = "black", weight = 1, opacity = 0.7, fillOpacity = 0.5,
+                  popup = ~paste(
+        "<strong>Census Tract:</strong> ", `Census Tract Name`, "<br>",
+        "<strong>Geoid:</strong> ", `GEOID`, "<br>",
+        "<strong>Bank Desert Status:</strong> ", `Bank Desert Status`, "<br>",
+        "<strong>Majority Race:</strong> ", `Majority Race`, "<br>",
+        "<strong>Minority Race:</strong> ", `Minority Race`, "<br>",
+        "<strong>Majority Gender:</strong> ", `Majority Gender`, "<br>",
+        "<strong>", selected_variable, ":</strong> ", tract_data[[selected_variable]], "<br>")) %>%
+      addLegend(pal = color_palette, 
+                values = tract_data[[selected_variable]], 
+                title = selected_variable, 
+                position = "bottomright")
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+```{r}
+
+```
+
+
