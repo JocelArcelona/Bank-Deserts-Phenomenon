@@ -193,6 +193,11 @@ data_preprocessing/ruca_data/
 # Ignore parquet files inside EDA directory 
 exploratory_data_analysis/*.parquet
 
+# Ignore jpeg files inside modeling directory
+modeling/*.jpg
+
+# Ignore jpeg files inside visualization directory
+visualization/*.parquet
 
 # ignore config
 config.ini

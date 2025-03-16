@@ -1,0 +1,13 @@
+name: census_tracts_viz
+title: census_tracts_viz
+username: jocelshinytest
+account: jocelshinytest
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14196136
+bundleId: 9915098
+url: https://jocelshinytest.shinyapps.io/census_tracts_viz/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .ipynb_checkpoints/census_tracts_visualization-checkpoint.ipynb|boxplot_hu.html|boxplot_ooh.html|boxplot_pd.html|census_shapefile.parquet
