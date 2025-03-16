@@ -14,6 +14,7 @@ A banking desert is a census tract without a bank branch located within a certai
 
 # Data Collection and Preprocessing (FDIC, TIGER/line shapefiles from the US Census, RUCA codes from the USDA, Census Tract Relationship Files from the US Census)
 **FDIC DATASET: BankFind Suite API** 
+
 ○ This dataset contains all banks taken from the FDIC’s API 
 
 ○ Steps for data collection: 
@@ -36,6 +37,7 @@ dataset to obtain a dataset containing bank information with GEOID
 from geocoding) and coordinates. 
 
 **TIGER/line Shapefiles**
+
 ○ Zipped files containing geospatial data that provide detailed geographical boundary information (in the case of this analysis, census tract level geographical boundary information) 
 
 ○ Steps for data collection: 
@@ -53,6 +55,7 @@ GeoDataFrame and saved it as a parquet file to preserve data types and compress 
 Shapefiles data contain coordinates of census tracts, the RUCA contains the Community Type of each census tract. 
 
 **USDA (Rural/Urban Classification using RUCA code) + Census Tract Relationship Files from the US Census**
+
 ○ The rural-urban commuting area code (RUCA code) classifies US census tracts on their level of urbanization, population density and daily commuting (this is for the 2010 version of RUCA). For 2020, the main criteria will be switched to Housing Density. 
 ○ This dataset is an outdated version (2010) – updated to 2020 using the census tract relationship files to match the GEOID for all the other datasets 
 ○ 2020 version from the USDA will be released on Spring 2025 
@@ -68,6 +71,7 @@ dropping all the 0’s in front of the codes. To prevent this, I had to change t
   2) Repeated the same process from above to the census tract relationship files data and merged both datasets on GEOID. This will update the 2010 GEOID from RUCA to the 2020 GEOID version – this will make merging the datasets easier and more aligned.
   
 **FDIC DATASET + NCUA DATASET**
+
 ○ This dataset contains ALL bank data and credit unions (all geocoded, containing GEOID and coordinates) 
 
 ○ Steps for data collection: 
@@ -79,6 +83,7 @@ dropping all the 0’s in front of the codes. To prevent this, I had to change t
   1) Same preprocessing steps taken for the FDIC data. Rename columns, drop null values, drop duplicated rows and ensure correct data types. 
 
 **US Census Data (ACS5) for Modeling** 
+
 ○ Steps for data preprocessing:
 
   1) Prepared the census data for modeling by identifying and extracting the majority and minority race/age/gender categories based on their 
@@ -114,7 +119,9 @@ Computes the geodesic distance (miles) between each census tract's internal poin
 
 **Classify Bank Desert Status:**
 0 banks within radius → Bank Desert
+
 1 bank within radius → Potential Bank Desert
+
 2+ banks within radius → Not a Bank Desert
 
 **Update DataFrame:**
