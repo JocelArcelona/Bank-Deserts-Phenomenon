@@ -187,7 +187,7 @@ These maps, built with Folium, allow users to visualize the geographic distribut
 
 **Note:**
 Maps for all 50 states are created using the Folium_Map_by_State.ipynb. Users can alternatively create a map for a single state using Foluim_Map.ipynb, which is preset to California.
-![Bank Desert Map](data/Bank_Desert_map.png)
+![Bank Desert Map](https://github.com/user-attachments/assets/b45027e5-6919-447f-9f88-c6594d3b0658)
 
 
 
