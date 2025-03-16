@@ -74,17 +74,17 @@ and included the majority and minority percentages as well)
   ■ Dropped columns that showed high correlation with each other to prevent multicollinearity and lessen feature space 
 
 # Feature Engineering 
-● Bank Desert Status (Target Variable): contains the bank desert status of each census tract in the US (bank desert, potential bank desert, not a bank desert)
-● Land Area in Sq Miles: Converted ALAND column (area in meters) to area in square miles 
-● Population Density: Population (from US Census data) divided by Land Area in Sq Miles 
-● Housing Density: House Units (from US Census data) divided by Land Area in Sq Miles 
-● Coordinates, State code, County code, Census Tract code: Obtained additional features by geocoding bank addresses 
-● Longitude, Latitude: Obtained from splitting the coordinates feature 
-● Community Type (Urban, Rural and Suburban): Given RUCA codes by census tract, I applied a lambda function on the Primary RUCA code column based on the ruca code description provided. 
+1) Bank Desert Status (Target Variable): contains the bank desert status of each census tract in the US (bank desert, potential bank desert, not a bank desert)
+2) Land Area in Sq Miles: Converted ALAND column (area in meters) to area in square miles 
+3) Population Density: Population (from US Census data) divided by Land Area in Sq Miles 
+4) Housing Density: House Units (from US Census data) divided by Land Area in Sq Miles 
+5) Coordinates, State code, County code, Census Tract code: Obtained additional features by geocoding bank addresses 
+6) Longitude, Latitude: Obtained from splitting the coordinates feature 
+7) Community Type (Urban, Rural and Suburban): Given RUCA codes by census tract, I applied a lambda function on the Primary RUCA code column based on the ruca code description provided. 
 If the ruca code is [1, 2, 3] – Urban. [4, 5, 6] – Suburban, and Rural for everything else. 
-● Radius Threshold in Miles: A criteria defined by the federal reserve board. 2 miles for urban communities, 5 miles for suburban communities and 10 miles for rural communities. I just mapped the Community Type using these predefined radius thresholds to create this feature. 
-● Bank Name: Created this feature by taking a main branch’s name + branch name if the main office is not equal to branch name. If the main branch is equal to the branch name, maintain the same name. 
-● GEOID for banks: During geocoding of the bank addresses, the state code, county code and census tract code were separated. Obtained GEOID by applying a lambda row function to concatenate all three columns as one. All the other datasets contained GEOID already.
+8) Radius Threshold in Miles: A criteria defined by the federal reserve board. 2 miles for urban communities, 5 miles for suburban communities and 10 miles for rural communities. I just mapped the Community Type using these predefined radius thresholds to create this feature. 
+9) Bank Name: Created this feature by taking a main branch’s name + branch name if the main office is not equal to branch name. If the main branch is equal to the branch name, maintain the same name. 
+10) GEOID for banks: During geocoding of the bank addresses, the state code, county code and census tract code were separated. Obtained GEOID by applying a lambda row function to concatenate all three columns as one. All the other datasets contained GEOID already.
 
 # Bank Desert Status 
 Created a function that determines the bank desert status of census tracts using a shapefile and bank location data.
@@ -108,6 +108,17 @@ Computes the geodesic distance (miles) between each census tract's internal poin
 Assigns the classification to the census shapefile dataframe and returns the updated dataset.
 
 # Bank Desert Classification using Socioeconomic Factors (for Identifying Financially Underserved Communities -- Bank Deserts) 
+Key Features: Socioeconomic factors such as Poverty, Income, Population Density, Housing Units, etc.
+Target Variable: Bank Desert Status
+Bank Desert Status: Positive class: Bank Desert, Negative class: Not a Bank Desert (Potential Bank Desert + Not a Bank Desert)
+Models Used: Logistic Regression, Decision Trees, Random Forest
+Methodology: Train-test split, Scaling, Stratification, Cross-validation, Hyperparameter tuning with GridSearchCV (Optimization)
+Evaluation: Metric - Weighted Recall
+Results Interpretation: Feature Importance, SHAP Analysis
+
+# Feature Importance and SHAP analysis visualization
+![Screenshot (18)](https://github.com/user-attachments/assets/af45bd86-b64d-4f41-910d-b41a04ccdfae)
+![summary_plot](https://github.com/user-attachments/assets/2ef1dbad-ac0d-4730-b14d-0d5dca816fbf)
 
 
 
