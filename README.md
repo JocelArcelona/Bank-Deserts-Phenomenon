@@ -123,8 +123,22 @@ Assigns the classification to the census shapefile dataframe and returns the upd
 **Results Interpretation:** Feature Importance, SHAP Analysis
 
 # Feature Importance and SHAP analysis visualization
+**Top 3 most influential Features to Bank Desert prediction according to Feature Importances:** 
+1) Population Density
+2) House Units
+3) OwnOcpHous%
 ![Screenshot (18)](https://github.com/user-attachments/assets/af45bd86-b64d-4f41-910d-b41a04ccdfae)
+
+Extracting feature importances from our random forest classifier does not necessarily equate to extracting the best predictors in the model. It just tells us which features were the biggest influence to the target variable but we dont know whether this influence positively contributed to predicting bank deserts or the other way around. This is where SHAP analysis comes into play.
+The beeswarm plot of the positive class below shows not just the importance of each feature but their actual relationship with bank desert prediction for the entire population. 
 ![summary_plot](https://github.com/user-attachments/assets/2ef1dbad-ac0d-4730-b14d-0d5dca816fbf)
+
+**To summarize the top 3 features based on the beeswarm plot above:**
+1) Census Tracts with lower population density values lead to more bank deserts
+2) Census Tracts with lower housing unit values lead to more bank deserts
+3) And inversely, Census Tracts with higher homeownership percentage lead to more bank deserts.
+
+
 
 
 
