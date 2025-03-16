@@ -19,6 +19,7 @@ exceptiongroup==1.2.2
 fastparquet==2024.11.0
 Flask==3.0.3
 fonttools==4.56.0
+folium==0.19.5
 geographiclib==2.0
 geopandas==1.0.1
 geopy==2.4.1
