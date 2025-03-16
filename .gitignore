@@ -201,3 +201,7 @@ visualization/*.parquet
 
 # ignore config
 config.ini
+
+# ignore data
+data/*
+visualization/Output

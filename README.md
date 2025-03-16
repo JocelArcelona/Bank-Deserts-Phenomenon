@@ -182,6 +182,17 @@ Run census_tracts_viz_r rmd file found under the visualization directory to see 
 ![Screenshot (22)](https://github.com/user-attachments/assets/86786e50-7ad4-45e4-9633-09ca3c32b078)
 
 
+# Interactive Bank Desert and Locations Maps
+These maps, built with Folium, allow users to visualize the geographic distribution of bank deserts in each state by census tract, as well as individual bank locations. Users can hover over specific census tracts to view Census demographic and socioeconomic characteristics, or hover over branch branch locations to view the bank name.
+
+**Note:**
+Maps for all 50 states are created using the Folium_Map_by_State.ipynb. Users can alternatively create a map for a single state using Foluim_Map.ipynb, which is preset to California.
+
+
+
+
+
+
 
 
 
