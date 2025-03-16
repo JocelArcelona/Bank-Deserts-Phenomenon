@@ -118,6 +118,7 @@ Filters the bank dataset by GEOID, as a tract may contain multiple banks.
 Computes the geodesic distance (miles) between each census tract's internal point and nearby bank branches.
 
 **Classify Bank Desert Status:**
+
 0 banks within radius → Bank Desert
 
 1 bank within radius → Potential Bank Desert
