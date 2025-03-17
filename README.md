@@ -36,6 +36,24 @@ dataset to obtain a dataset containing bank information with GEOID
 (feature engineered using State + County + Census tract code obtained 
 from geocoding) and coordinates. 
 
+**NCUA DATASET: List of Active Federally Insured Credit Unions Hyperlink** 
+
+○ This dataset contains all currently active credit unions that are federally insured
+
+○ Steps for data collection: 
+
+  1) The NCUA provides a [hyperlink](https://ncua.gov/files/publications/analysis/federally-insured-credit-union-list-december-2024.zip) that automatically downloads the Excel file when selected.
+  2) Remove carriage returns from headers and save the file as CSV. 
+  3) The city names were all truncated after 15 characters, so some manual cleaning was implemented to fix those cities.
+  4) The NCUA dataset needed to be geocoded to extract the census tract GEOID and locations. The geocoding process was done using the US Census Bureau’s Geocoding Services Web API. Created a function to batch geocode all bank addresses to retrieve geoid and coordinates.
+
+○ Steps for data preprocessing: 
+
+  1) Merged the geocoded addresses columns with the original NCUA credit union 
+dataset to obtain a dataset containing credit union information with GEOID 
+(feature engineered using State + County + Census tract code obtained 
+from geocoding) and coordinates. 
+
 **TIGER/line Shapefiles**
 
 ○ Zipped files containing geospatial data that provide detailed geographical boundary information (in the case of this analysis, census tract level geographical boundary information) 
