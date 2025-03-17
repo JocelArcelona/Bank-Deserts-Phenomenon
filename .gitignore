@@ -199,6 +199,9 @@ modeling/*.jpg
 # Ignore jpeg files inside visualization directory
 visualization/*.parquet
 
+# Ignore entire data directory
+data/
+
 # ignore config
 config.ini
 
