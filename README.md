@@ -10,7 +10,7 @@ A banking desert is a census tract without a bank branch located within a certai
 # Objectives 
 1) Feature engineer a target variable called Bank Desert Status
 2) Create a classification model that predicts Bank Desert Status based on socioeconomic factors (income, population density, house units, etc.)
-3) Create an interactive visualization showcasing census tracts filtered by state, county and census data + geographic distribution of branches
+3) Create an interactive visualization showcasing census tracts filtered by state, county and census data + geographic distribution of bank branches
 
 # Data Collection and Preprocessing (FDIC, TIGER/line shapefiles from the US Census, RUCA codes from the USDA, Census Tract Relationship Files from the US Census)
 **FDIC DATASET: BankFind Suite API** 
